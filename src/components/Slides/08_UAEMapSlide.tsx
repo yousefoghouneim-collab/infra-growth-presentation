@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SlideLayout } from "../Slider/SlideLayout";
 import { useSlide } from "@/context/SlideContext";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 // Coordinate mapping — viewBox 0 0 600 420
 // x = (lon - 51.2) * 108 + 20
@@ -66,6 +66,7 @@ const projects = [
     slideIndex: 8,
     tag: "Guinness Record",
     color: "#D4AF37",
+    showDetails: true,
   },
   {
     id: "sadr",
@@ -78,6 +79,7 @@ const projects = [
     slideIndex: 9,
     tag: "Largest Contract",
     color: "#9EF3EE",
+    showDetails: false,
   },
   {
     id: "bahia",
@@ -90,6 +92,7 @@ const projects = [
     slideIndex: 9,
     tag: "D&B Contract",
     color: "#5ecfc8",
+    showDetails: false,
   },
   {
     id: "police",
@@ -102,6 +105,33 @@ const projects = [
     slideIndex: 9,
     tag: "Government",
     color: "#9EF3EE",
+    showDetails: false,
+  },
+  {
+    id: "ghafwoods",
+    name: "Ghaf Woods – Infrastructure & Roads",
+    client: "MAF",
+    value: "AED 179.5M",
+    highlight: "Large-scale infrastructure and roads project in Dubai, delivering comprehensive road networks and utilities for a major master-planned community.",
+    type: "Infrastructure & Roads",
+    lon: 55.18, lat: 25.28,
+    slideIndex: 9,
+    tag: "Infrastructure",
+    color: "#5ecfc8",
+    showDetails: false,
+  },
+  {
+    id: "edenhills",
+    name: "Eden Hills Villas Development – Roads & Utilities",
+    client: "H&H",
+    value: "AED 134M",
+    highlight: "Roads and utilities development for a premium villas community in Dubai, including full infrastructure package with road networks and essential utility services.",
+    type: "Roads & Utilities",
+    lon: 55.35, lat: 25.05,
+    slideIndex: 9,
+    tag: "Roads & Utilities",
+    color: "#9EF3EE",
+    showDetails: false,
   },
 ];
 
@@ -120,9 +150,13 @@ const emirateLabels = [
 ];
 
 export const UAEMapSlide = () => {
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string>("guinness");
   const { goTo } = useSlide();
-  const hoveredProject = projects.find((p) => p.id === hovered);
+  const selectedProject = projects.find((p) => p.id === selected);
+
+  const handleSelect = (id: string) => {
+    setSelected(id);
+  };
 
   return (
     <SlideLayout background="aqua" showCircles={false} showLogo>
@@ -138,7 +172,7 @@ export const UAEMapSlide = () => {
           <h2 className="text-3xl md:text-4xl font-black text-[#122023]">
             Projects Across the <span style={{ color: "#0d5e59" }}>UAE</span>
           </h2>
-          <p className="text-xs text-[#122023]/45 mt-1">Hover a pin to explore · Click to navigate to the project slide</p>
+          <p className="text-xs text-[#122023]/45 mt-1">Click a pin to explore project details</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
@@ -211,14 +245,12 @@ export const UAEMapSlide = () => {
                 {/* Project pins */}
                 {projects.map((p, i) => {
                   const pt = toSVG(p.lon, p.lat);
-                  const isHov = hovered === p.id;
+                  const isSel = selected === p.id;
                   return (
                     <g
                       key={p.id}
                       style={{ cursor: "pointer" }}
-                      onMouseEnter={() => setHovered(p.id)}
-                      onMouseLeave={() => setHovered(null)}
-                      onClick={() => goTo(p.slideIndex)}
+                      onClick={() => handleSelect(p.id)}
                     >
                       {/* Outer pulse ring */}
                       <motion.circle
@@ -239,16 +271,16 @@ export const UAEMapSlide = () => {
                       {/* Core pin */}
                       <motion.circle
                         cx={pt.x} cy={pt.y}
-                        r={isHov ? 7 : 5}
+                        r={isSel ? 7 : 5}
                         fill={p.color}
                         stroke="white" strokeWidth="1.5"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.5, delay: 1.2 + i * 0.15, type: "spring", stiffness: 300 }}
-                        style={{ filter: isHov ? `drop-shadow(0 0 5px ${p.color})` : "none", transition: "r 0.2s, filter 0.2s" }}
+                        style={{ filter: isSel ? `drop-shadow(0 0 5px ${p.color})` : "none", transition: "r 0.2s, filter 0.2s" }}
                       />
-                      {/* Pin label on hover */}
-                      {isHov && (
+                      {/* Pin label when selected */}
+                      {isSel && (
                         <motion.g initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.15 }}>
                           <rect x={pt.x - 32} y={pt.y - 22} width={64} height={13} rx={3} fill={p.color} />
                           <text x={pt.x} y={pt.y - 13} textAnchor="middle"
@@ -274,38 +306,33 @@ export const UAEMapSlide = () => {
           {/* Side panel */}
           <div className="flex flex-col gap-3">
             <AnimatePresence mode="wait">
-              {hoveredProject ? (
+              {selectedProject && (
                 <motion.div
-                  key={hoveredProject.id}
+                  key={selectedProject.id}
                   initial={{ opacity: 0, x: 12, scale: 0.97 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: -12, scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   className="rounded-2xl p-4 bg-white border"
-                  style={{ borderColor: `${hoveredProject.color}50` }}
+                  style={{ borderColor: `${selectedProject.color}50` }}
                 >
                   <div className="text-[9px] font-black uppercase tracking-widest mb-1.5"
-                    style={{ color: hoveredProject.color === "#D4AF37" ? "#9c7f1c" : "#0d5e59" }}>
-                    {hoveredProject.type}
+                    style={{ color: selectedProject.color === "#D4AF37" ? "#9c7f1c" : "#0d5e59" }}>
+                    {selectedProject.type}
                   </div>
-                  <h3 className="text-sm font-black text-[#122023] mb-0.5 leading-snug">{hoveredProject.name}</h3>
-                  <div className="text-[10px] text-[#122023]/40 mb-2">Client: {hoveredProject.client}</div>
-                  <div className="text-lg font-black text-[#122023] mb-2">{hoveredProject.value}</div>
-                  <p className="text-[10px] text-[#122023]/60 leading-relaxed mb-3">{hoveredProject.highlight}</p>
-                  <motion.button
-                    whileHover={{ x: 3 }}
-                    onClick={() => goTo(hoveredProject.slideIndex)}
-                    className="flex items-center gap-1.5 text-xs font-bold text-[#0d5e59] hover:text-[#122023] transition-colors"
-                  >
-                    View project details <ArrowRight className="w-3.5 h-3.5" />
-                  </motion.button>
-                </motion.div>
-              ) : (
-                <motion.div key="ph" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  className="rounded-2xl p-6 border-2 border-dashed border-[#122023]/12 flex flex-col items-center justify-center text-center min-h-[160px]"
-                >
-                  <MapPin className="w-7 h-7 text-[#122023]/20 mb-2" />
-                  <div className="text-xs text-[#122023]/30">Hover a pin on the map<br />to explore project details</div>
+                  <h3 className="text-sm font-black text-[#122023] mb-0.5 leading-snug">{selectedProject.name}</h3>
+                  <div className="text-[10px] text-[#122023]/40 mb-2">Client: {selectedProject.client}</div>
+                  <div className="text-lg font-black text-[#122023] mb-2">{selectedProject.value}</div>
+                  <p className="text-[10px] text-[#122023]/60 leading-relaxed mb-3">{selectedProject.highlight}</p>
+                  {selectedProject.showDetails && (
+                    <motion.button
+                      whileHover={{ x: 3 }}
+                      onClick={() => goTo(selectedProject.slideIndex)}
+                      className="flex items-center gap-1.5 text-xs font-bold text-[#0d5e59] hover:text-[#122023] transition-colors"
+                    >
+                      View project details <ArrowRight className="w-3.5 h-3.5" />
+                    </motion.button>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -318,11 +345,9 @@ export const UAEMapSlide = () => {
                   initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.7 + i * 0.08 }}
-                  onClick={() => goTo(p.slideIndex)}
-                  onMouseEnter={() => setHovered(p.id)}
-                  onMouseLeave={() => setHovered(null)}
+                  onClick={() => handleSelect(p.id)}
                   className={`flex items-center gap-2.5 px-3 py-2 rounded-xl border text-left transition-all ${
-                    hovered === p.id ? "border-[#122023]/18 bg-white shadow-sm" : "border-[#122023]/8 bg-white/35 hover:bg-white/60"
+                    selected === p.id ? "border-[#122023]/18 bg-white shadow-sm" : "border-[#122023]/8 bg-white/35 hover:bg-white/60"
                   }`}
                 >
                   <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: p.color }} />

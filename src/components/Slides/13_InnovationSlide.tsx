@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { SlideLayout } from "../Slider/SlideLayout";
 import { Settings2, MapPin, Monitor, Drone } from "lucide-react";
 import mobileMappingImg from "@/assets/mobile-mapping-survey.jpg";
+import blog103Img from "@/assets/blog_103.jpg";
 
 const innovations = [
   {
@@ -32,7 +33,7 @@ const innovations = [
     color: "#9EF3EE",
     status: "LIVE",
     dept: "PMV",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop",
+    img: blog103Img,
   },
   {
     title: "Drone Topographic Survey",

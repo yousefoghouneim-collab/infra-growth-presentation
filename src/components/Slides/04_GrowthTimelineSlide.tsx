@@ -83,9 +83,9 @@ export const GrowthTimelineSlide = () => {
         {/* Timeline row */}
         <div className="relative mb-8">
           {/* Connecting line track */}
-          <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-[#122023]/10" />
+          <div className="absolute top-[8px] left-[12.5%] right-[12.5%] h-px bg-[#122023]/10" />
           <motion.div
-            className="absolute top-8 left-[12.5%] h-px"
+            className="absolute top-[8px] left-[12.5%] h-px"
             style={{ background: "#5ecfc8" }}
             initial={{ width: 0 }}
             animate={{ width: `${(active / 3) * 75}%` }}

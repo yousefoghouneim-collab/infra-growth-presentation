@@ -27,7 +27,7 @@ export const TenderingSlide = () => {
           <h2 className="text-4xl md:text-5xl font-black text-[#122023]">
             Tendering <span className="text-[#5ecfc8]">Powerhouse</span>
           </h2>
-          <p className="text-sm text-[#122023]/40 mt-1">March 2023 — February 2026</p>
+          <p className="text-sm text-[#122023]/40 mt-4">March 2023 — February 2026</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">

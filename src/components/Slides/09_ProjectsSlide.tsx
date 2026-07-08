@@ -36,12 +36,12 @@ const Row = ({ p, i, delay }: { p: typeof projects[0]; i: number; delay: number 
     transition={{ duration: 0.35, delay }}
     className="flex items-center gap-2 py-1.5 border-b border-[#122023]/6 last:border-0 group"
   >
-    <span className="text-[9px] font-black text-[#5ecfc8] w-4 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+    <span className="text-[11px] font-black text-[#5ecfc8] w-5 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
     <div className="flex-1 min-w-0">
-      <p className="text-[10px] font-semibold text-[#122023] leading-tight truncate">{p.name}</p>
-      <p className="text-[9px] text-[#122023]/40">{p.client}</p>
+      <p className="text-xs font-semibold text-[#122023] leading-tight truncate">{p.name}</p>
+      <p className="text-[11px] text-[#122023]/40">{p.client}</p>
     </div>
-    <span className="text-[10px] font-black text-[#0d6b65] shrink-0 tabular-nums">{fmt(p.value)}</span>
+    <span className="text-xs font-black text-[#0d6b65] shrink-0 tabular-nums">{fmt(p.value)}</span>
   </motion.div>
 );
 
@@ -53,7 +53,7 @@ export const ProjectsSlide = () => (
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-5"
+        className="text-center mb-10"
       >
         <span className="section-label block mb-1">Chapter 07 · Portfolio</span>
         <h2 className="text-3xl md:text-4xl font-black text-[#122023]">
@@ -70,9 +70,9 @@ export const ProjectsSlide = () => (
         {[col1, col2].map((col, ci) => (
           <div key={ci}>
             <div className="grid grid-cols-[20px_1fr_auto] gap-2 px-1 pb-1.5 mb-1 border-b-2 border-[#5ecfc8]/40">
-              <span className="text-[8px] font-black text-[#5ecfc8] uppercase tracking-widest">#</span>
-              <span className="text-[8px] font-black text-[#122023]/40 uppercase tracking-widest">Project · Client</span>
-              <span className="text-[8px] font-black text-[#122023]/40 uppercase tracking-widest text-right">Value</span>
+              <span className="text-[10px] font-black text-[#5ecfc8] uppercase tracking-widest">#</span>
+              <span className="text-[10px] font-black text-[#122023]/40 uppercase tracking-widest">Project · Client</span>
+              <span className="text-[10px] font-black text-[#122023]/40 uppercase tracking-widest text-right">Value</span>
             </div>
             {col.map((p, i) => (
               <Row

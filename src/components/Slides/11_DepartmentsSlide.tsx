@@ -97,7 +97,7 @@ const depts = [
 ];
 
 export const DepartmentsSlide = () => {
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>("elec");
   const activeDept = depts.find((d) => d.id === active);
 
   return (

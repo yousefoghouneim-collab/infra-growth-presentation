@@ -91,10 +91,7 @@ export const ClosingSlide = () => {
         >
           <div className="h-px w-32 bg-[#122023]/15 mb-3" />
           <div className="text-sm font-bold text-[#122023]/45 tracking-widest uppercase">
-            Innovo Infra · Established February 2023 · Confidential
-          </div>
-          <div className="text-xs text-[#122023]/25">
-            This presentation contains proprietary information — not for distribution without prior written approval.
+            Innovo Infra · Established February 2023
           </div>
         </motion.div>
       </div>
