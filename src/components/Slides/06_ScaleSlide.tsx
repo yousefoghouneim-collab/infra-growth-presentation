@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { SlideLayout } from "../Slider/SlideLayout";
 import { AnimatedCounter } from "../ui/AnimatedCounter";
 import { HardHat, Truck, Trophy, Clock, Cpu, Wrench } from "lucide-react";
+import rayanImg from "@/assets/rayan-innovo.jpg";
 
 const metrics = [
   {
@@ -56,6 +57,22 @@ export const ScaleSlide = () => {
           <h2 className="text-4xl md:text-5xl font-black text-[#122023]">
             Built to <span style={{ color: "#0d6b65" }}>Scale Fast</span>
           </h2>
+        </motion.div>
+
+        {/* Leadership */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex justify-center mb-6"
+        >
+          <div className="flex items-center gap-4">
+            <img
+              src={rayanImg}
+              alt="Rayan"
+              className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-lg"
+            />
+          </div>
         </motion.div>
 
         {/* Growth bars */}
