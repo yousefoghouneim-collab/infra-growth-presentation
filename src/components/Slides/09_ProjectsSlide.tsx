@@ -16,11 +16,13 @@ const projects = [
   { name: "Al Faya-Razeen-Al Qua'a Lighting Network", client: "ALDAR Projects", value: 107_347_405 },
   { name: "232 Residential Plots Infrastructure", client: "ALDAR Projects", value: 197_500_000 },
   { name: "North Al Bahia – Full Infra Package", client: "ALDAR Projects", value: 429_000_000 },
+  { name: "Naseem Al Jurf Phase 3B", client: "IMKAN", value: 107_500_000 },
   { name: "Al Sader Housing – Infrastructure", client: "ALDAR Projects", value: 799_759_787 },
+  { name: "Bloom Living – Lake & Landscape", client: "Bloom Living", value: 86_000_000 },
 ];
 
-const col1 = projects.slice(0, 8);
-const col2 = projects.slice(8);
+const col1 = projects.slice(0, 9);
+const col2 = projects.slice(9);
 
 const totalValue = projects.reduce((s, p) => s + p.value, 0);
 
